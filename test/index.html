@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 اسلات ماشین کازینو</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- نوار وضعیت بالا -->
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-coins gold-icon"></i>
+                <span>موجودی: <span id="balance">1000</span> سکه</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-sync-alt"></i>
+                <span>تعداد چرخش: <span id="spin-count">0</span></span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-trophy"></i>
+                <span>امتیاز: <span id="score">0</span></span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-history"></i>
+                <span>بردها: <span id="total-wins">0</span></span>
+            </div>
+        </div>
+
+        <!-- عنوان بازی -->
+        <header class="game-header">
+            <h1><i class="fas fa-star"></i> کازینو طلایی <i class="fas fa-star"></i></h1>
+            <div class="jackpot">
+                <i class="fas fa-crown"></i>
+                <span>جکپات: <span id="jackpot">5000</span> سکه</span>
+            </div>
+        </header>
+
+        <!-- ماشین اسلات اصلی -->
+        <main class="slot-machine">
+            <!-- بخش اسلات ها -->
+            <div class="slots-container">
+                <div class="reels" id="reels">
+                    <!-- 5 ستون × 3 ردیف -->
+                    <!-- جاوااسکریپت این بخش را پر می‌کند -->
+                </div>
+                
+                <!-- خطوط برنده -->
+                <div class="paylines">
+                    <div class="payline line1"></div>
+                    <div class="payline line2"></div>
+                    <div class="payline line3"></div>
+                    <div class="payline line4"></div>
+                    <div class="payline line5"></div>
+                </div>
+            </div>
+
+            <!-- کنترل های بازی -->
+            <div class="controls">
+                <button id="spin-btn" class="btn spin-btn">
+                    <i class="fas fa-play"></i> چرخش (10 سکه)
+                </button>
+                <button id="stop-btn" class="btn stop-btn" disabled>
+                    <i class="fas fa-stop"></i> توقف
+                </button>
+                <button id="reset-btn" class="btn reset-btn">
+                    <i class="fas fa-redo"></i> بازی جدید
+                </button>
+                <button id="auto-spin-btn" class="btn auto-btn">
+                    <i class="fas fa-robot"></i> چرخش خودکار
+                </button>
+            </div>
+
+            <!-- تنظیمات شرط بندی -->
+            <div class="betting-panel">
+                <div class="bet-control">
+                    <button id="bet-down" class="bet-btn"><i class="fas fa-minus"></i></button>
+                    <div class="bet-amount">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>مبلغ شرط: <span id="bet-amount">10</span> سکه</span>
+                    </div>
+                    <button id="bet-up" class="bet-btn"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="speed-control">
+                    <span>سرعت چرخش:</span>
+                    <input type="range" id="spin-speed" min="1" max="10" value="5">
+                </div>
+            </div>
+        </main>
+
+        <!-- پنل اطلاعات -->
+        <div class="info-panels">
+            <!-- جدول پرداخت ها -->
+            <div class="panel payout-panel">
+                <h3><i class="fas fa-award"></i> جدول پرداخت‌ها</h3>
+                <div class="payout-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>نماد</th>
+                                <th>3 تایی</th>
+                                <th>4 تایی</th>
+                                <th>5 تایی</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payout-body">
+                            <!-- جاوااسکریپت پر می‌کند -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="special-features">
+                    <div class="feature">
+                        <i class="fas fa-gem diamond-icon"></i>
+                        <span>الماس: نماد Wild (جایگزین همه)</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-star scatter-icon"></i>
+                        <span>ستاره: 3 تا = 10 دور رایگان</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تاریخچه بردها -->
+            <div class="panel history-panel">
+                <h3><i class="fas fa-history"></i> تاریخچه بردها</h3>
+                <div class="history-list" id="history-list">
+                    <!-- بردها اینجا نمایش داده می‌شوند -->
+                    <div class="empty-history">هنوز بردی ثبت نشده است!</div>
+                </div>
+                <div class="current-win" id="current-win">
+                    <!-- آخرین برد اینجا نمایش داده می‌شود -->
+                </div>
+            </div>
+
+            <!-- امکانات ویژه -->
+            <div class="panel bonus-panel">
+                <h3><i class="fas fa-gift"></i> امکانات ویژه</h3>
+                <div class="bonus-features">
+                    <div class="bonus-item">
+                        <div class="bonus-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <span>چرخش‌های رایگان</span>
+                        <span id="free-spins">0</span>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <span>ضریب برد</span>
+                        <span id="multiplier">1x</span>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <span>جکپات پیشرفتگی</span>
+                        <div class="jackpot-progress">
+                            <div class="progress-bar">
+                                <div id="jackpot-progress" class="progress-fill"></div>
+                            </div>
+                            <span id="jackpot-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+        
+
+        <!-- اعلان ها -->
+        <div id="notification" class="notification">
+            <div class="notification-content">
+                <span id="notification-text"></span>
+                <button id="close-notification"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <!-- صداها -->
+        <audio id="spin-sound" src="sounds/spin.mp3" preload="auto"></audio>
+        <audio id="win-sound" src="sounds/win.mp3" preload="auto"></audio>
+        <audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
