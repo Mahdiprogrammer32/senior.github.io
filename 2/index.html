@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royale Roulette - کازینوی سلطنتی</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #d4af37;
+            --dark-gold: #b8941f;
+            --light-gold: #f4e4bc;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-hover: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --red: #dc143c;
+            --green: #0f7938;
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--light-gold), var(--primary-gold));
+        }
+
+        /* Elegant background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(220, 20, 60, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .game-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(42, 42, 42, 0.9));
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .main-game {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Wheel Section */
+        .wheel-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .wheel-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin: 0 auto 30px;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #dc143c 0deg 9.73deg,
+                #000 9.73deg 19.46deg,
+                #dc143c 19.46deg 29.19deg,
+                #000 29.19deg 38.92deg,
+                #dc143c 38.92deg 48.65deg,
+                #000 48.65deg 58.38deg,
+                #dc143c 58.38deg 68.11deg,
+                #000 68.11deg 77.84deg,
+                #dc143c 77.84deg 87.57deg,
+                #000 87.57deg 97.3deg,
+                #dc143c 97.3deg 107.03deg,
+                #000 107.03deg 116.76deg,
+                #dc143c 116.76deg 126.49deg,
+                #000 126.49deg 136.22deg,
+                #dc143c 136.22deg 145.95deg,
+                #000 145.95deg 155.68deg,
+                #dc143c 155.68deg 165.41deg,
+                #000 165.41deg 175.14deg,
+                #dc143c 175.14deg 184.87deg,
+                #000 184.87deg 194.6deg,
+                #dc143c 194.6deg 204.33deg,
+                #000 204.33deg 214.06deg,
+                #dc143c 214.06deg 223.79deg,
+                #000 223.79deg 233.52deg,
+                #dc143c 233.52deg 243.25deg,
+                #000 243.25deg 252.98deg,
+                #dc143c 252.98deg 262.71deg,
+                #000 262.71deg 272.44deg,
+                #dc143c 272.44deg 282.17deg,
+                #000 282.17deg 291.9deg,
+                #dc143c 291.9deg 301.63deg,
+                #000 301.63deg 311.36deg,
+                #dc143c 311.36deg 321.09deg,
+                #000 321.09deg 330.82deg,
+                #dc143c 330.82deg 340.55deg,
+                #000 340.55deg 350.28deg,
+                #0f7938 350.28deg 360deg
+            );
+            box-shadow: 
+                0 0 50px rgba(212, 175, 55, 0.3),
+                inset 0 0 50px rgba(0, 0, 0, 0.5);
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            position: relative;
+        }
+
+        .wheel-numbers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .wheel-number {
+            position: absolute;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+            z-index: 10;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid var(--primary-gold);
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+            z-index: 11;
+        }
+
+        .wheel.spinning {
+            animation: wheelSpin 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        @keyframes wheelSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(calc(360deg * 5 + var(--final-rotation))); }
+        }
+
+        /* Betting Board */
+        .betting-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .betting-board {
+            background: #0f7938;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+
+        .bet-number {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bet-number::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bet-number:hover::before {
+            opacity: 1;
+        }
+
+        .bet-number.red {
+            background: var(--red);
+        }
+
+        .bet-number.black {
+            background: #000;
+        }
+
+        .bet-number.green {
+            background: var(--green);
+        }
+
+        .bet-number.selected {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .outside-bets {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .outside-bet {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .outside-bet:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .outside-bet.selected {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            color: var(--primary-gold);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .betting-controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chip-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chip {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px dashed rgba(212, 175, 55, 0.5);
+            position: relative;
+        }
+
+        .chip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: inherit;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .chip-10 {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+
+        .chip-25 {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .chip-50 {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .chip-100 {
+            background: linear-gradient(135deg, #000000, #2c3e50);
+            color: white;
+        }
+
+        .chip-500 {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--bg-dark);
+        }
+
+        .chip:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .chip.selected {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            border-style: solid;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-spin {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--bg-dark);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-clear {
+            background: transparent;
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .btn-help {
+            background: transparent;
+            color: var(--primary-gold);
+            border: 2px solid var(--primary-gold);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* History */
+        .history-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .history-title {
+            color: var(--primary-gold);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .history-numbers {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .history-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            animation: historyPop 0.5s ease-out;
+        }
+
+        @keyframes historyPop {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Result Display */
+        .result-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-hover));
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .result-display.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .result-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .result-text {
+            color: var(--primary-gold);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Help Modal */
+        .help-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .help-modal.show {
+            display: flex;
+        }
+
+        .help-content {
+            background: linear-gradient(135deg, var(--bg-card), var(--bg-hover));
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .help-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .help-title {
+            color: var(--primary-gold);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .close-help {
+            background: transparent;
+            border: none;
+            color: var(--primary-gold);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-help:hover {
+            transform: scale(1.2);
+            color: var(--light-gold);
+        }
+
+        .help-section {
+            margin-bottom: 25px;
+        }
+
+        .help-section-title {
+            color: var(--primary-gold);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-section-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .help-section-content ul {
+            padding-right: 20px;
+            margin-top: 10px;
+        }
+
+        .help-section-content li {
+            margin-bottom: 8px;
+        }
+
+        .betting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .betting-table th, .betting-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .betting-table th {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .betting-table tr:nth-child(even) {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .betting-table tr:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-game {
+                grid-template-columns: 1fr;
+            }
+
+            .wheel-container {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .wheel-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .number-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .betting-controls {
+                flex-direction: column;
+            }
+
+            .chip {
+                width: 40px;
+                height: 40px;
+                font-size: 12px;
+            }
+
+            .help-content {
+                padding: 20px;
+            }
+
+            .help-title {
+                font-size: 22px;
+            }
+
+            .betting-table {
+                font-size: 14px;
+            }
+
+            .betting-table th, .betting-table td {
+                padding: 8px 5px;
+            }
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🎰</div>
+                <div>
+                    <h1>Royale Roulette</h1>
+                    <div class="subtitle">Casino Royale Premium</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-game">
+            <section class="wheel-section">
+                <div class="wheel-container">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel">
+                        <div class="wheel-numbers" id="wheelNumbers"></div>
+                        <div class="wheel-center"></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="chip-selector">
+                        <div class="chip chip-10" data-value="10">10</div>
+                        <div class="chip chip-25" data-value="25">25</div>
+                        <div class="chip chip-50 selected" data-value="50">50</div>
+                        <div class="chip chip-100" data-value="100">100</div>
+                        <div class="chip chip-500" data-value="500">500</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="betting-section">
+                <div class="betting-board">
+                    <div class="number-grid" id="numberGrid"></div>
+                    <div class="outside-bets">
+                        <div class="outside-bet" data-bet="1-18">1-18</div>
+                        <div class="outside-bet" data-bet="even">EVEN</div>
+                        <div class="outside-bet" data-bet="red">RED</div>
+                        <div class="outside-bet" data-bet="black">BLACK</div>
+                        <div class="outside-bet" data-bet="odd">ODD</div>
+                        <div class="outside-bet" data-bet="19-36">19-36</div>
+                        <div class="outside-bet" data-bet="1st12">1st 12</div>
+                        <div class="outside-bet" data-bet="2nd12">2nd 12</div>
+                        <div class="outside-bet" data-bet="3rd12">3rd 12</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="controls">
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-label">Balance</div>
+                    <div class="stat-value" id="balance">5000</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Bet</div>
+                    <div class="stat-value" id="totalBet">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Last Win</div>
+                    <div class="stat-value" id="lastWin">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Total Win</div>
+                    <div class="stat-value" id="totalWin">0</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-clear" id="clearBets">
+                    <i class="fas fa-times"></i> Clear Bets
+                </button>
+                <button class="btn btn-help" id="helpBtn">
+                    <i class="fas fa-question-circle"></i> Help
+                </button>
+                <button class="btn btn-spin" id="spinBtn">
+                    <i class="fas fa-play"></i> Spin Wheel
+                </button>
+            </div>
+        </section>
+
+        <section class="history-section">
+            <h3 class="history-title">Recent Numbers</h3>
+            <div class="history-numbers" id="historyNumbers"></div>
+        </section>
+    </div>
+
+    <div class="result-display" id="resultDisplay">
+        <div class="result-number" id="resultNumber"></div>
+        <div class="result-text" id="resultText"></div>
+    </div>
+
+    <div class="help-modal" id="helpModal">
+        <div class="help-content">
+            <div class="help-header">
+                <h2 class="help-title">راهنمای بازی رولت</h2>
+                <button class="close-help" id="closeHelp">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="help-section">
+                <h3 class="help-section-title">
+                    <i class="fas fa-book"></i> قوانین اصلی بازی
+                </h3>
+                <div class="help-section-content">
+                    <p>رولت یک بازی کازینویی کلاسیک است که در آن یک توپ روی یک چرخ چرخان می‌چرخد و در یکی از خانه‌های عددی قرار می‌گیرد. هدف بازی پیش‌بینی عدد یا گروهی از اعداد است که توپ در آن قرار می‌گیرد.</p>
+                    <p>چرخ رولت شامل 37 خانه است: اعداد 0 تا 36. عدد 0 به رنگ سبز است و بقیه اعداد به رنگ قرمز یا سیاه تقسیم شده‌اند.</p>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3 class="help-section-title">
+                    <i class="fas fa-coins"></i> نحوه شرط‌بندی
+                </h3>
+                <div class="help-section-content">
+                    <p>برای شروع، مقدار شرط خود را با انتخاب یکی از چیپ‌ها تعیین کنید. سپس روی یک یا چند مورد از گزینه‌های زیر شرط ببندید:</p>
+                    <ul>
+                        <li><strong>شرط مستقیم (Straight):</strong> روی یک عدد خاص شرط ببندید (ضریب پرداخت 35:1)</li>
+                        <li><strong>شرط رنگ (Red/Black):</strong> روی رنگ قرمز یا سیاه شرط ببندید (ضریب پرداخت 1:1)</li>
+                        <li><strong>شرط زوج/فرد (Even/Odd):</strong> روی عدد زوج یا فرد شرط ببندید (ضریب پرداخت 1:1)</li>
+                        <li><strong>شرط بازه (1-18/19-36):</strong> روی اعداد 1 تا 18 یا 19 تا 36 شرط ببندید (ضریب پرداخت 1:1)</li>
+                        <li><strong>شرط دسته (Dozen):</strong> روی یکی از دسته‌های 12 تایی (1st 12, 2nd 12, 3rd 12) شرط ببندید (ضریب پرداخت 2:1)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3 class="help-section-title">
+                    <i class="fas fa-table"></i> جدول پرداخت‌ها
+                </h3>
+                <div class="help-section-content">
+                    <table class="betting-table">
+                        <thead>
+                            <tr>
+                                <th>نوع شرط</th>
+                                <th>ضریب پرداخت</th>
+                                <th>احتمال برد</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>مستقیم (Straight)</td>
+                                <td>35:1</td>
+                                <td>2.7%</td>
+                            </tr>
+                            <tr>
+                                <td>دسته (Dozen)</td>
+                                <td>2:1</td>
+                                <td>32.4%</td>
+                            </tr>
+                            <tr>
+                                <td>رنگ (Red/Black)</td>
+                                <td>1:1</td>
+                                <td>48.6%</td>
+                            </tr>
+                            <tr>
+                                <td>زوج/فرد (Even/Odd)</td>
+                                <td>1:1</td>
+                                <td>48.6%</td>
+                            </tr>
+                            <tr>
+                                <td>بازه (1-18/19-36)</td>
+                                <td>1:1</td>
+                                <td>48.6%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3 class="help-section-title">
+                    <i class="fas fa-lightbulb"></i> نکات و استراتژی
+                </h3>
+                <div class="help-section-content">
+                    <ul>
+                        <li>همیشه با مدیریت مالی بازی کنید و فقط مبلغی را شرط ببندید که توانایی از دست دادن آن را دارید.</li>
+                        <li>تاریخچه اعداد قبلی می‌تواند به شما در تصمیم‌گیری کمک کند، اما هر نتیجه کاملاً تصادفی است.</li>
+                        <li>شرط‌های خارجی (رنگ، زوج/فرد، بازه) احتمال برد بیشتری دارند اما پرداخت کمتری دارند.</li>
+                        <li>شرط‌های داخلی (مستقیم) احتمال برد کمتری دارند اما پرداخت بسیار بالایی دارند.</li>
+                        <li>از ترکیب شرط‌های مختلف برای به حداکثر رساندن شانس خود استفاده کنید.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3 class="help-section-title">
+                    <i class="fas fa-keyboard"></i> میانبرهای کیبورد
+                </h3>
+                <div class="help-section-content">
+                    <ul>
+                        <li><strong>Space:</strong> چرخاندن چرخ</li>
+                        <li><strong>C:</strong> پاک کردن شرط‌ها</li>
+                        <li><strong>H:</strong> نمایش راهنما</li>
+                        <li><strong>1-5:</strong> انتخاب چیپ‌ها (10, 25, 50, 100, 500)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Game state
+        let balance = 5000;
+        let currentBet = 50;
+        let bets = {};
+        let totalBetAmount = 0;
+        let totalWinAmount = 0;
+        let isSpinning = false;
+        let history = [];
+
+        // Roulette numbers and colors
+        const rouletteNumbers = [
+            0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26
+        ];
+
+        const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+        const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
+
+        // DOM elements
+        const wheel = document.getElementById('wheel');
+        const wheelNumbers = document.getElementById('wheelNumbers');
+        const numberGrid = document.getElementById('numberGrid');
+        const balanceEl = document.getElementById('balance');
+        const totalBetEl = document.getElementById('totalBet');
+        const lastWinEl = document.getElementById('lastWin');
+        const totalWinEl = document.getElementById('totalWin');
+        const spinBtn = document.getElementById('spinBtn');
+        const clearBetsBtn = document.getElementById('clearBets');
+        const helpBtn = document.getElementById('helpBtn');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const resultNumber = document.getElementById('resultNumber');
+        const resultText = document.getElementById('resultText');
+        const historyNumbers = document.getElementById('historyNumbers');
+        const helpModal = document.getElementById('helpModal');
+        const closeHelpBtn = document.getElementById('closeHelp');
+
+        // Initialize wheel numbers
+        function initializeWheel() {
+            rouletteNumbers.forEach((num, index) => {
+                const angle = (index * 360) / 37;
+                const radian = (angle * Math.PI) / 180;
+                const x = 50 + 40 * Math.cos(radian - Math.PI / 2);
+                const y = 50 + 40 * Math.sin(radian - Math.PI / 2);
+                
+                const numberEl = document.createElement('div');
+                numberEl.className = 'wheel-number';
+                numberEl.textContent = num;
+                numberEl.style.left = `${x}%`;
+                numberEl.style.top = `${y}%`;
+                numberEl.style.transform = 'translate(-50%, -50%)';
+                
+                wheelNumbers.appendChild(numberEl);
+            });
+        }
+
+        // Initialize betting board
+        function initializeBettingBoard() {
+            // Create 0
+            const zero = document.createElement('div');
+            zero.className = 'bet-number green';
+            zero.textContent = '0';
+            zero.dataset.number = '0';
+            zero.onclick = () => placeBet('0');
+            numberGrid.appendChild(zero);
+
+            // Create numbers 1-36
+            for (let i = 1; i <= 36; i++) {
+                const number = document.createElement('div');
+                number.className = `bet-number ${redNumbers.includes(i) ? 'red' : 'black'}`;
+                number.textContent = i;
+                number.dataset.number = i;
+                number.onclick = () => placeBet(i);
+                numberGrid.appendChild(number);
+            }
+
+            // Outside bets
+            document.querySelectorAll('.outside-bet').forEach(bet => {
+                bet.onclick = () => placeBet(bet.dataset.bet);
+            });
+        }
+
+        // Place bet
+        function placeBet(betType) {
+            if (isSpinning) return;
+            
+            if (!bets[betType]) {
+                bets[betType] = 0;
+            }
+            
+            if (balance >= currentBet) {
+                bets[betType] += currentBet;
+                balance -= currentBet;
+                updateDisplay();
+                updateBetSelection();
+            }
+        }
+
+        // Update bet selection display
+        function updateBetSelection() {
+            // Clear previous selections
+            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+            
+            // Add selected class to bets
+            Object.keys(bets).forEach(betType => {
+                if (bets[betType] > 0) {
+                    if (betType === '0' || !isNaN(betType)) {
+                        const numberEl = document.querySelector(`[data-number="${betType}"]`);
+                        if (numberEl) numberEl.classList.add('selected');
+                    } else {
+                        const betEl = document.querySelector(`[data-bet="${betType}"]`);
+                        if (betEl) betEl.classList.add('selected');
+                    }
+                }
+            });
+        }
+
+        // Calculate total bet
+        function calculateTotalBet() {
+            totalBetAmount = Object.values(bets).reduce((sum, bet) => sum + bet, 0);
+            totalBetEl.textContent = totalBetAmount;
+        }
+
+        // Spin wheel
+        function spinWheel() {
+            if (isSpinning || totalBetAmount === 0) return;
+            
+            isSpinning = true;
+            spinBtn.disabled = true;
+            
+            // Random result
+            const resultIndex = Math.floor(Math.random() * 37);
+            const resultNumber = rouletteNumbers[resultIndex];
+            
+            // Calculate rotation
+            const baseRotation = 360 * 5; // 5 full spins
+            const targetAngle = (resultIndex * 360) / 37;
+            const finalRotation = baseRotation + (360 - targetAngle);
+            
+            // Apply rotation
+            wheel.style.setProperty('--final-rotation', `${finalRotation}deg`);
+            wheel.classList.add('spinning');
+            
+            // Show result after spin
+            setTimeout(() => {
+                wheel.classList.remove('spinning');
+                wheel.style.transform = `rotate(${finalRotation}deg)`;
+                showResult(resultNumber);
+                calculateWinnings(resultNumber);
+                addToHistory(resultNumber);
+                
+                // Reset for next spin
+                setTimeout(() => {
+                    isSpinning = false;
+                    spinBtn.disabled = false;
+                    clearBets();
+                }, 3000);
+            }, 4000);
+        }
+
+        // Show result
+        function showResult(number) {
+            const isRed = redNumbers.includes(number);
+            const isBlack = blackNumbers.includes(number);
+            const isGreen = number === 0;
+            
+            resultNumber.textContent = number;
+            resultNumber.style.background = isRed ? 'var(--red)' : isBlack ? '#000' : 'var(--green)';
+            resultNumber.style.color = 'white';
+            
+            let resultText = '';
+            if (isRed) resultText = 'RED';
+            else if (isBlack) resultText = 'BLACK';
+            else resultText = 'GREEN';
+            
+            if (number % 2 === 1 && number !== 0) resultText += ' • ODD';
+            else if (number % 2 === 0 && number !== 0) resultText += ' • EVEN';
+            
+            resultText.textContent = resultText;
+            
+            resultDisplay.classList.add('show');
+            setTimeout(() => {
+                resultDisplay.classList.remove('show');
+            }, 2500);
+        }
+
+        // Calculate winnings
+        function calculateWinnings(resultNumber) {
+            let winAmount = 0;
+            const isRed = redNumbers.includes(resultNumber);
+            const isBlack = blackNumbers.includes(resultNumber);
+            const isOdd = resultNumber % 2 === 1 && resultNumber !== 0;
+            const isEven = resultNumber % 2 === 0 && resultNumber !== 0;
+            
+            Object.keys(bets).forEach(betType => {
+                let won = false;
+                let multiplier = 0;
+                
+                // Straight up bet
+                if (betType == resultNumber) {
+                    won = true;
+                    multiplier = 35;
+                }
+                // Red/Black
+                else if (betType === 'red' && isRed) {
+                    won = true;
+                    multiplier = 1;
+                }
+                else if (betType === 'black' && isBlack) {
+                    won = true;
+                    multiplier = 1;
+                }
+                // Odd/Even
+                else if (betType === 'odd' && isOdd) {
+                    won = true;
+                    multiplier = 1;
+                }
+                else if (betType === 'even' && isEven) {
+                    won = true;
+                    multiplier = 1;
+                }
+                // 1-18/19-36
+                else if (betType === '1-18' && resultNumber >= 1 && resultNumber <= 18) {
+                    won = true;
+                    multiplier = 1;
+                }
+                else if (betType === '19-36' && resultNumber >= 19 && resultNumber <= 36) {
+                    won = true;
+                    multiplier = 1;
+                }
+                // Dozens
+                else if (betType === '1st12' && resultNumber >= 1 && resultNumber <= 12) {
+                    won = true;
+                    multiplier = 2;
+                }
+                else if (betType === '2nd12' && resultNumber >= 13 && resultNumber <= 24) {
+                    won = true;
+                    multiplier = 2;
+                }
+                else if (betType === '3rd12' && resultNumber >= 25 && resultNumber <= 36) {
+                    won = true;
+                    multiplier = 2;
+                }
+                
+                if (won) {
+                    winAmount += bets[betType] * (multiplier + 1);
+                }
+            });
+            
+            if (winAmount > 0) {
+                balance += winAmount;
+                totalWinAmount += winAmount - totalBetAmount;
+                lastWinEl.textContent = winAmount - totalBetAmount;
+            } else {
+                lastWinEl.textContent = '0';
+            }
+            
+            updateDisplay();
+        }
+
+        // Add to history
+        function addToHistory(number) {
+            history.unshift(number);
+            if (history.length > 10) history.pop();
+            
+            historyNumbers.innerHTML = '';
+            history.forEach(num => {
+                const historyEl = document.createElement('div');
+                historyEl.className = 'history-number';
+                historyEl.textContent = num;
+                historyEl.style.background = redNumbers.includes(num) ? 'var(--red)' : 
+                                           blackNumbers.includes(num) ? '#000' : 'var(--green)';
+                historyEl.style.color = 'white';
+                historyNumbers.appendChild(historyEl);
+            });
+        }
+
+        // Clear bets
+        function clearBets() {
+            balance += totalBetAmount;
+            bets = {};
+            totalBetAmount = 0;
+            updateDisplay();
+            updateBetSelection();
+        }
+
+        // Update display
+        function updateDisplay() {
+            balanceEl.textContent = balance.toLocaleString();
+            totalWinEl.textContent = totalWinAmount.toLocaleString();
+            calculateTotalBet();
+        }
+
+        // Chip selection
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                currentBet = parseInt(this.dataset.value);
+            });
+        });
+
+        // Event listeners
+        spinBtn.addEventListener('click', spinWheel);
+        clearBetsBtn.addEventListener('click', clearBets);
+        helpBtn.addEventListener('click', () => {
+            helpModal.classList.add('show');
+        });
+        closeHelpBtn.addEventListener('click', () => {
+            helpModal.classList.remove('show');
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isSpinning) {
+                e.preventDefault();
+                spinWheel();
+            } else if (e.code === 'KeyC') {
+                clearBets();
+            } else if (e.code === 'KeyH') {
+                helpModal.classList.toggle('show');
+            } else if (e.code === 'Digit1') {
+                document.querySelector('.chip-10').click();
+            } else if (e.code === 'Digit2') {
+                document.querySelector('.chip-25').click();
+            } else if (e.code === 'Digit3') {
+                document.querySelector('.chip-50').click();
+            } else if (e.code === 'Digit4') {
+                document.querySelector('.chip-100').click();
+            } else if (e.code === 'Digit5') {
+                document.querySelector('.chip-500').click();
+            }
+        });
+
+        // Initialize game
+        initializeWheel();
+        initializeBettingBoard();
+        updateDisplay();
+
+        // Save/Load game state
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('rouletteBalance', balance);
+            localStorage.setItem('rouletteTotalWin', totalWinAmount);
+            localStorage.setItem('rouletteHistory', JSON.stringify(history));
+        });
+
+        window.addEventListener('load', () => {
+            const savedBalance = localStorage.getItem('rouletteBalance');
+            const savedTotalWin = localStorage.getItem('rouletteTotalWin');
+            const savedHistory = localStorage.getItem('rouletteHistory');
+            
+            if (savedBalance) balance = parseInt(savedBalance);
+            if (savedTotalWin) totalWinAmount = parseInt(savedTotalWin);
+            if (savedHistory) {
+                history = JSON.parse(savedHistory);
+                history.forEach(num => addToHistory(num));
+            }
+            
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
